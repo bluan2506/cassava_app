@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../model/field.dart';
 import '../styles.dart';
@@ -23,9 +25,13 @@ class FieldList extends StatefulWidget {
 class _FieldListState extends State<FieldList> {
   bool _displayForm = false;
 
-  List<Field> _fields = [ Field.newOne('Test Field 1'), Field.newOne('Test Field 2')]; // Thêm các trường khác ở đây ];
+  // List<Field> _fields = [ Field.newOne('Test Field 1'), Field.newOne('Test Field 2')];
+  List<Field> _fields = [];
+  List<Map<String, dynamic>> fieldList = [];
+
   @override
   void initState() {
+    fetchData();
     createCsvFileFromAsset();
     super.initState();
   }
@@ -213,5 +219,25 @@ class _FieldListState extends State<FieldList> {
     await csvFile.writeAsString(csvData);
 
     print('CSV file created at: $csvFilePath');
+  }
+
+  Future<void> fetchData() async {
+    final response = await http.post(Uri.parse('http://localhost:8081/api/getListField'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      List<Map<String, dynamic>> list = [];
+
+      for (var item in data) {
+        list.add(Map<String, dynamic>.from(item));
+      }
+
+      setState(() {
+        fieldList = list;
+        print(fieldList);
+      });
+    } else {
+      throw Exception('Failed to load data');
+    }
   }
 }
