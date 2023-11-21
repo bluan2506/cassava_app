@@ -1,1 +1,3 @@
-# cassava_app
+# DIRECTION-app
+
+Irrigation decision support app

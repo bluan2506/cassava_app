@@ -1,0 +1,86 @@
+{
+    "tab1": "ยินดีต้อนรับ" ,
+    "tab2": "การตั้งค่า",
+    "tab3": "คำแนะนำ",
+    "simulationResults":"ผลการจำลอง",
+    
+    "welcomeMessage":"ยินดีต้อนรับสู่แอพพลิเคชั่นการให้น้ำของมันสำปะหลัง",
+  "instructionMessage":"โปรดเลื่อนไปทางซ้ายมือเพื่อเริ่มต้น \n คุณสามารถป้อนข้อมูลได้ที่แท็บตรงกลาง \n ผลการจำลองจะแสดงที่แท็บด้านขวามือ",
+  "disclaimerMessage":"การปฏิเสธความรับผิด: แอพพลิเคชั่นนี้ยังไม่สามารถนำไปใช้งานได้จริง ผู้ผลิตจะไม่รับผิดต่อความเสียหายใด ๆ ทั้งสิ้น",
+   "fieldNameDismissed": "{fieldName} แปลงปลูกที่ถูกลบทิ้ง", 
+    "@fieldNameDismissed": {
+        "description": "Tell what field is deleted",
+        "placeholders": {
+            "fieldName": {
+                "type": "String",
+                "example": "ไร่มันสำปะหลังของฉัน"
+            }
+        }
+    },
+    "editFieldName":"แก้ไข {fieldName}",
+    "@editFieldName": {
+      "description": "Tell what field is being edited",
+      "placeholders": {
+          "fieldName": {
+              "type": "String",
+              "example": "ไร่มันสำปะหลังของฉัน"
+          }
+      }
+  },
+    "delete": "ลบ",
+    "edit": "แก้ไข",
+    "labelTextAddField": "ชื่อสนาม",
+    "hintFieldName": "กรอกชื่อสนาม",
+    "predictTheYieldOfField": "พยากรณ์ผลผลิตของ {fieldName}",
+    "monitoringIrrigation": "การตรวจสอบการให้น้ำ",
+    "downloadWeatherDataFile": "ดาวน์โหลดไฟล์ข้อมูลสภาพอากาศ",
+    "yield": "ผลผลิต (กก./ไร่)",
+    "irrigation": "การให้น้ำ (ตร.ม./ไร่)",
+    "leafAreaIndex": "ดัชนีพื้นที่ใบ",
+    "labileCarbon": "แร่ธาตุคาร์บอน (%)",
+    "topsoilWetness": "ความชื้นดินเหนียวบนสุด (%ความจุของดิน)",
+    "photosynthesis": "การสังเคราะห์แสง (กรัมคาร์บอน)",
+    "topsoilNContent": "ปริมาณไนโตรเจนในดินเหนียวบนสุด (มิลลิกรัม/กิโลกรัม)",
+    "nStatus": "สถานะไนโตรเจน (อัตราส่วนกับสภาวะที่เหมาะสม)",
+    "acreage": "ขนาดพื้นที่ (ไร่)",
+    "enterAcreage": "กรอกขนาดพื้นที่",
+    "holesNumber": "จำนวนรูปั๊มน้ำหยด",
+    "holes": "รู",
+    "enterDripHoles": "กรอกจำนวนรูปั๊มน้ำหยด",
+    "autoIrrigation": "การให้น้ำอัตโนมัติ",
+    "goToDetailIrrigation": "ไปยังหน้าตรวจสอบการให้น้ำ",
+    "fieldCapacityToMaintain": "ความจุของดินที่ต้องรักษา (%)",
+    "durationOfIrrigation": "ระยะเวลาในการให้น้ำ",
+    "dripRate": "อัตราการไหลของน้ำในรูปั๊มเดียว (ลิตร/ชม./รู)",
+    "distanceBetweenHoles": "ระยะห่างระหว่างรู (ซม.)",
+    "distanceBetweenRows": "ระยะห่างระหว่างแถว (ซม.)",
+    "scaleRain": "ปรับเปลี่ยนปริมาณฝน",
+    "scaleFertilizer": "ลดหรือเพิ่มระดับปุ๋ย (%)",
+    "change": "เปลี่ยน",
+    "autoIrrigation": "ระบบน้ำอัตโนมัติ",
+    "manualIrrigation": "ระบบน้ำด้วยมือ",
+    "amountOfIrrigationToday": "ปริมาณการให้น้ำวันนี้",
+    "startingIrrigationTime": "เวลาเริ่มให้น้ำ",
+    "endingIrrigationTime": "เวลาสิ้นสุดการให้น้ำ",
+    "amountOfIrrigationFor": "ปริมาณการให้น้ำสำหรับ",
+    "startingTime": "เวลาเริ่มต้น",
+    "chooseIrrigationTime": "เลือกเวลาเริ่มให้น้ำ",
+    "amountOfIrrigation": "ปริมาณการให้น้ำ",
+    "enterAmountOfIrrigation": "กรอกปริมาณการให้น้ำ",
+    "confirm": "ยืนยัน",
+    "radiation": "รังสีแสง",
+    "rainFall": "ปริมาณน้ำฝน",
+    "relativeHumidity": "ความชื้นสัมพัทธ์",
+    "temperature": "อุณหภูมิ",
+    "windSpeed": "ความเร็วลม",
+    "soil30Humidity": "30 cm soil humidity",
+    "soil60Humidity": "60 cm soil humidity",
+    "irrigationHistory": "Irrigation history"
+
+
+
+
+
+
+
+}

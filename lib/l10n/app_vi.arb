@@ -1,0 +1,80 @@
+{
+    "tab1": "Xin chào" ,
+    "tab2": "Cài đặt",
+    "tab3": "Lời khuyên",
+    "simulationResults":"Kết quả mô phỏng",
+
+    "welcomeMessage":"Chào mừng đến với ứng dụng tưới tiêu cho cây sắn",
+  "instructionMessage":"Vui lòng lướt sang trái để bắt đầu.",
+  "disclaimerMessage":"Cảnh báo: Ứng dụng là sự tham khảo tương đối, không nên quá tin tưởng vào nó.",
+   "fieldNameDismissed": "{fieldName} đã loại bỏ",
+    "@fieldNameDismissed": {
+        "description": "Tell what field is deleted",
+        "placeholders": {
+            "fieldName": {
+                "type": "String",
+                "example": "Nhập tên cánh đồng"
+            }
+        }
+    },
+    "editFieldName":"Chỉnh sửa {fieldName}",
+    "@editFieldName": {
+      "description": "Tell what field is being edited",
+      "placeholders": {
+          "fieldName": {
+              "type": "String",
+              "example": "Nhập tên cánh đồng"
+          }
+      }
+  },
+  "delete":"Xóa",
+  "edit": "Chỉnh sửa",
+  "labelTextAddField": "Tên cánh đồng",
+  "hintFieldName":"Nhập tên cánh đồng",
+  "predictTheYieldOfField":"Dự đoán sản lượng của {fieldName}",
+  "monitoringIrrigation": "Theo dõi tưới tiêu",
+  "downloadWeatherDataFile": "Tải xuống tệp dữ liệu thời tiết",
+  "yield": "Sản lượng (kg/ha)",
+  "irrigation": "Lượng tưới (m^2/ha)",
+  "leafAreaIndex": "Chỉ số diện tích lá",
+  "labileCarbon": "Labile carbon (%)",
+  "topsoilWetness": "Độ ẩm của lớp đất bề mặt(%field capacity)",
+  "photosynthesis":"Quang hợp (g carbon)",
+  "topsoilNContent":"Topsoil N content (mg/kg)",
+  "nStatus": "N status (ratio to optimal)",
+  "acreage": "Acreage",
+  "enterAcreage": "Nhập diện tích",
+  "holesNumber": "Tổng số lỗ tưới",
+  "holes": "lỗ",
+  "enterDripHoles": "Nhập số lỗ tưới",
+  "autoIrrigation": "Tưới tự động",
+  "goToDetailIrrigation": "Go to the detail irrigation page",
+  "fieldCapacityToMaintain": "Phần trăm độ ẩm tối đa cần duy trì (%)",
+  "durationOfIrrigation": "Thời gian tưới",
+  "dripRate":"Tốc độ nhỏ giọt của mỗi lỗ tưới (l/h/hole)",
+  "distanceBetweenHoles": "Khoảng cách giữa các lỗ (cm)",
+  "distanceBetweenRows": "Khoảng cách giữa các hàng (cm)",
+  "scaleRain": "Giảm hoặc tăng lượng mưa dự kiến (%)",
+  "scaleFertilizer": "Giảm hoặc tăng mức phân bón (%)",
+  "change": "Thay đổi",
+  "autoIrrigation": "Tưới tự động",
+  "manualIrrigation": "Tưới thủ công",
+  "manualIrrigation": "Manual Irrigation",
+  "amountOfIrrigationToday": "Lượng nước tưới hôm nay là",
+  "startingIrrigationTime": "Thời gian bắt đầu tưới",
+  "endingIrrigationTime": "Thời gian kết thúc tưới",
+  "amountOfIrrigationFor": "Lượng nước tưới cho",
+  "startingTime": "Thời gian bắt đầu",
+  "chooseIrrigationTime": "Chọn thời gian bắt đầu tưới",
+  "amountOfIrrigation": "Lượng nước tưới",
+  "enterAmountOfIrrigation": "Nhập lượng tưới",
+  "confirm": "Xác nhận",
+  "radiation": "Bức xạ",
+  "rainFall": "Lượng mưa",
+  "relativeHumidity": "Độ ẩm tương đối",
+  "temperature": "Nhiệt độ",
+  "windSpeed": "Tốc độ gió",
+  "soil30Humidity": "Độ ẩm đất ở độ sâu 30cm",
+  "soil60Humidity": "Độ ẩm đất ở độ sâu 60cm",
+  "irrigationHistory": "Lịch sử tưới tiêu"
+}

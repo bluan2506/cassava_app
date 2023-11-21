@@ -1,0 +1,96 @@
+{
+  "tab1": "Welcome",
+  "@tab1": {
+    "description": "Title for the first tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tab2": "Settings",
+  "@tab2": {
+    "description": "Title for the second tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "tab3": "Advice",
+  "@tab3": {
+    "description": "Title for the third tab",
+    "type": "text",
+    "placeholders": {}
+  },
+  "simulationResults":"Simulation Results",
+  "welcomeMessage":"Welcome to the Cassava Irrigation App",
+  "instructionMessage":"Please swipe left to get started.",
+  "disclaimerMessage":"Disclaimer: This app cannot be trusted in any way. Do not use it. The makers do not take any responsibility for anything.",
+   "fieldNameDismissed": "{fieldName} dismissed",
+    "@fieldNameDismissed": {
+        "description": "Tell what field is deleted",
+        "placeholders": {
+            "fieldName": {
+                "type": "String",
+                "example": "myCassavaField"
+            }
+        }
+    },
+    "editFieldName":"Edit {fieldName}",
+    "@editFieldName": {
+      "description": "Tell what field is being edited",
+      "placeholders": {
+          "fieldName": {
+              "type": "String",
+              "example": "myCassavaField"
+          }
+      }
+  },
+  "delete":"delete",
+  "edit": "Edit",
+  "hintFieldName": "Enter field name",
+  "labelTextAddField": "Field name",
+  "predictTheYieldOfField":"Predict the yield of {fieldName}",
+  "monitoringIrrigation": "Monitoring irrigation",
+  "downloadWeatherDataFile": "Download weather data file",
+  "yield": "Yield (kg/ha)",
+  "irrigation": "Irrigation (m^2/ha)",
+  "leafAreaIndex": "Leaf area index",
+  "labileCarbon": "Labile carbon (%)",
+  "topsoilWetness": "Topsoil Wetness (%field capacity)",
+  "photosynthesis":"Photosynthesis (g carbon)",
+  "topsoilNContent":"Topsoil N content (mg/kg)",
+  "nStatus": "N status (ratio to optimal)",
+  "acreage": "Acreage",
+  "enterAcreage": "Enter the acreage",
+  "holesNumber": "The number of drip holes",
+  "holes": "holes",
+  "enterDripHoles": "Enter the number of drip holes",
+  "autoIrrigation": "Auto irrigation",
+  "goToDetailIrrigation": "Go to the detail irrigation page",
+  "fieldCapacityToMaintain": "Field capacity to maintain (%)",
+  "durationOfIrrigation": "Duration of irrigation",
+  "dripRate":"Drip rate of single hole (l/h/hole)",
+  "distanceBetweenHoles": "Distance between holes (cm)",
+  "distanceBetweenRows": "Distance between rows (cm)",
+  "scaleRain": "Reduce or increase expected rainfall (%)",
+  "scaleFertilizer": "Reduce or increase fertilizer level (%)",
+  "change": "Change",
+  "autoIrrigation": "Auto irrigation",
+  "manualIrrigation": "Manual Irrigation",
+  "amountOfIrrigationToday": "The amount of irrigation today is",
+  "startingIrrigationTime": "Starting irrigation time",
+  "endingIrrigationTime": "Ending irrigation time",
+  "amountOfIrrigationFor": "The amount of irrigation for",
+  "startingTime": "Starting time",
+  "chooseIrrigationTime": "Choose starting irrigation time",
+  "amountOfIrrigation": "Amount of Irrigation",
+  "enterAmountOfIrrigation": "Enter the amount of irrigation",
+  "confirm": "Confirm",
+  "radiation": "Radiation",
+  "rainFall": "Rain fall",
+  "relativeHumidity": "RelativeHumidity",
+  "temperature": "Temperature",
+  "windSpeed": "Wind speed",
+  "soil30Humidity": "30 cm soil humidity",
+  "soil60Humidity": "60 cm soil humidity",
+  "irrigationHistory": "Irrigation history"
+
+
+
+}
