@@ -1,4 +1,5 @@
 import 'package:direction/ui/irrigation_history.dart';
+import 'package:direction/ui/predict_disease.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -82,6 +83,7 @@ class _FieldDetailState extends State<FieldDetail> {
     result.add(_renderIrrigation());
     result.add(_renderIrrigationHistory());
     result.add(_renderEditField());
+    result.add(_renderDisease());
     result.add(_renderDownloadWeatherData());
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -91,6 +93,37 @@ class _FieldDetailState extends State<FieldDetail> {
         children: result,
       ),
     );
+  }
+
+  Widget _renderDisease() {
+    return Container(
+        padding: EdgeInsets.only(left: 15, top: 10, right: 15, bottom: 15),
+        child: SizedBox(
+          height: 70,
+          child: ElevatedButton(
+            style: Styles.fieldDetailButtonStyle,
+            child: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                      'Disease prediction',
+                      style: Styles.fieldDetailTextStyle),
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Styles.iconColor,
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () =>
+                _navigateToDiseasePredictPage(context, this._field),
+          ),
+        ));
   }
 
   Widget _renderDownloadWeatherData() {
@@ -162,6 +195,11 @@ class _FieldDetailState extends State<FieldDetail> {
         context,
         MaterialPageRoute(
             builder: (context) => CustomizedParametersPage(this._field)));
+  }
+
+  void _navigateToDiseasePredictPage(BuildContext context, Field field) {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => PredictDisease(field)));
   }
 
   void _navigateToPredictedYieldPage(BuildContext context, Field field) {

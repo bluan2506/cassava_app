@@ -166,6 +166,17 @@ class Field {
       this.startIrrigation,
       this.endIrrigation);
 
+  // Field(
+  //     this.fieldName,
+  //     this.dAP,
+  //     this.startTime,
+  //     this.irrigationCheck,
+  //     this.amountOfIrrigation,
+  //     this.customizedParameters,
+  //     this.startIrrigation,
+  //     this._autoIrrigateTime,
+  //     );
+
   Field.newOne(String name)
       : fieldName = name,
         startTime = DateTime.now().toString(),
@@ -294,6 +305,13 @@ class Field {
     return r;
   }
 
+
+  List<List<double>> get results => _results;
+
+  set results(List<List<double>> value) {
+    _results = value;
+  }
+
   List<double> getLai() {
     List<double> r = List.generate(_results[3].length,
         (index) => double.parse((_results[3][index]).toStringAsFixed(2)));
@@ -319,8 +337,8 @@ class Field {
   }
 
   List<double> getNStatus() {
-    List<double> r = List.generate(_results[7].length,
-        (index) => double.parse((_results[7][index]).toStringAsFixed(2)));
+    List<double> r = List.generate(_results[8].length,
+        (index) => double.parse((_results[8][index]).toStringAsFixed(2)));
     return r;
   }
 

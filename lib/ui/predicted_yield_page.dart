@@ -6,6 +6,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../model/field.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +24,14 @@ class PredictedYieldPage extends StatefulWidget {
 class _PredictedYieldPageState extends State<PredictedYieldPage> {
   final Field field;
   late Future<List<double>> data;
+  late Future<void> fetchDataFuture;
 
   _PredictedYieldPageState(this.field);
 
   @override
   void initState() {
     // TODO: implement initState
+    fetchDataFuture = fetchData();
     super.initState();
   }
 
@@ -38,12 +42,49 @@ class _PredictedYieldPageState extends State<PredictedYieldPage> {
         title: Text(AppLocalizations.of(context)!
             .predictTheYieldOfField(this.field.fieldName)),
       ),
-      body: _renderBody(),
+      body:FutureBuilder<void>(
+        future: fetchDataFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            // Return a loading indicator while waiting for data
+            return CircularProgressIndicator();
+          } else if (snapshot.hasError) {
+            // Handle error state
+            return Text('Error: ${snapshot.error}');
+          } else {
+            // Data has been fetched, render your actual widget
+            return _renderBody();
+          }
+        },
+      ),
     );
+  }
+
+  Future<void> fetchData() async {
+    var headers = {'Content-Type': 'text/plain'};
+    var body = '${field.fieldName}';
+
+    final response = await http.post(
+      Uri.parse('http://localhost:8081/api/calculateModel'),
+        headers: headers, body: body
+    );
+
+    if (response.statusCode == 200) {
+      List<List<double>> responseData = (jsonDecode(response.body) as List)
+          .map((e) => (e as List).cast<double>())
+          .toList();
+
+      // Now you can work with responseData, which should be a List of Lists of ints.
+      field.results = responseData;
+      print(responseData);
+    } else {
+      print('Failed to fetch data. Status code: ${response.statusCode}');
+    }
   }
 
 //N status (ratio to optimal)
   Widget _renderBody() {
+    fetchData();
     List<Widget> result = [];
     var xData = this.field.getDoy();
     var xTitle = this.field.getResultDay();

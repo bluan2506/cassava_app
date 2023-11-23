@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:direction/model/customized_parameters.dart';
+import 'package:direction/model/measured_data.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -235,6 +237,31 @@ class _FieldListState extends State<FieldList> {
       setState(() {
         fieldList = list;
         print(fieldList);
+        for (var item in fieldList) {
+          String fieldName = item['fieldName'];
+          int dAP = item['dAP'];
+          String startTime = item['startTime'];
+          bool irrigationCheck = item['irrigationCheck'];
+          double amountOfIrrigation = item['amountOfIrrigation'];
+          List<double> yields = []; // predicted by model
+          String checkYieldDate = ""; //
+          Map<String, dynamic> _customizedParameters = Map<String, dynamic>.from(item['customized_parameters']);
+          CustomizedParameters customizedParameters = CustomizedParameters(fieldName,
+              _customizedParameters['acreage'],
+              _customizedParameters['fieldCapacity'],
+              _customizedParameters['autoIrrigation'],
+              _customizedParameters['irrigationDuration'],
+              _customizedParameters['dripRate'],
+              _customizedParameters['distanceBetweenHole'],
+              _customizedParameters['distanceBetweenRow'],
+              _customizedParameters['scaleRain'],
+              _customizedParameters['fertilizationLevel'],
+              _customizedParameters['numberOfHoles']);
+          MeasuredData measuredData = MeasuredData(fieldName, 0, 0, 0, 0, 0, 0, 0);
+          String startIrrigation = item['startIrrigation'];
+          String endIrrigation = '';
+          _fields.add(Field(fieldName, startTime, dAP, irrigationCheck, amountOfIrrigation, yields, checkYieldDate, customizedParameters, measuredData, startIrrigation, endIrrigation));
+        }
       });
     } else {
       throw Exception('Failed to load data');
