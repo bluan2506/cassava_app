@@ -62,7 +62,7 @@ dependencies:
   flutter_localization: ^0.1.10
   fluttertoast: ^8.0.7
   flutter_math: ^0.3.0-nullsafety.1
-  image_picker: ^1.0.4
+  image_picker: ^1.0.2
   tflite: ^1.0.6
 
   #rflutter_alert: ^2.0.2

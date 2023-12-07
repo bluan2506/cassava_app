@@ -4,6 +4,8 @@ import '../model/irrigation_record.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../styles.dart';
 
@@ -92,6 +94,7 @@ class _IrrigationHistoryState extends State<IrrigationHistory> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          Text("User: ${irrigationRecord.userName}", style: Styles.timeTitle),
           Text("${AppLocalizations.of(context)!.startingIrrigationTime}: $formattedDate", style: Styles.timeTitle,),
           Text("${AppLocalizations.of(context)!.durationOfIrrigation}: ${irrigationRecord.duration} (s)", style: Styles.timeTitle),
           Text("${AppLocalizations.of(context)!.amountOfIrrigation}: ${irrigationRecord.amount} (l/m^2)", style: Styles.timeTitle)
@@ -101,14 +104,41 @@ class _IrrigationHistoryState extends State<IrrigationHistory> {
   }
 
   Future<void> _loadData() async {
-    DataSnapshot snapshot =
-        await FirebaseDatabase.instance.ref("${Constant.USER}/${this.fieldName}/${Constant.IRRIGATION_HISTORY}").get();
+    // DataSnapshot snapshot =
+    //     await FirebaseDatabase.instance.ref("${Constant.USER}/${this.fieldName}/${Constant.IRRIGATION_HISTORY}").get();
 
-    for (var child in snapshot.children) {
-      double amount = double.parse(child.child('amount').value.toString());
-      double duration = double.parse(child.child('duration').value.toString());
-      DateTime time = DateTime.parse(child.child("startIrrigation").value.toString());
-      this.irrigationRecords.add(IrrigationRecord(amount: amount, duration: duration, time: time));
+    // for (var child in snapshot.children) {
+    //   double amount = double.parse(child.child('amount').value.toString());
+    //   double duration = double.parse(child.child('duration').value.toString());
+    //   DateTime time = DateTime.parse(child.child("startIrrigation").value.toString());
+    //   this.irrigationRecords.add(IrrigationRecord(userName: 'Luan', amount: amount, duration: duration, time: time));
+    // }
+
+    var headers = {'Content-Type': 'text/plain'};
+    var body = '$fieldName';
+
+    final response = await http.post(
+        Uri.parse('${Constant.BASE_URL}getHistoryIrrigation'),
+        headers: headers, body: body
+    );
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      List<Map<String, dynamic>> list = [];
+
+      for (var item in data) {
+        list.add(Map<String, dynamic>.from(item));
+      }
+
+      for (var history in list) {
+        String userName = history['userName'];
+        double amount = history['amount'];
+        double duration = history['duration'];
+        String dateTime = history['time'];
+        this.irrigationRecords.add(IrrigationRecord(userName: userName, amount: amount, duration: duration, time: DateTime.parse(dateTime)));
+      }
+    } else {
+      print('Failed to fetch data. Status code: ${response.statusCode}');
     }
     this.irrigationRecords.sort((a,b){
       if (a.time.isBefore(b.time)) return 1;

@@ -1,14 +1,12 @@
 import 'dart:convert';
 
+import 'package:direction/constant.dart';
 import 'package:direction/info.dart';
 import 'package:direction/ui/home.dart';
 import 'package:flutter/material.dart';
 
 //TODO ios language support needs additional steps in xcode, see website above
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-//generate code for language switch
 
 //database management
 import 'dart:io' show Platform;
@@ -59,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
   Future<Map<String, dynamic>> loginUser(String email, String password) async {
     //add this line to cmd to connect device to localhost
     //adb reverse tcp:8081 tcp:8081
-    final String apiUrl = "http://localhost:8081/api/login";
+    final String apiUrl = "${Constant.BASE_URL}login";
 
     final response = await http.post(
       Uri.parse(apiUrl),
@@ -151,6 +149,10 @@ class _LoginPageState extends State<LoginPage> {
                       // Failed to log in
                       print("Đăng nhập thất bại");
                       print("Message: $message");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Home()),
+                      );
                       Fluttertoast.showToast(
                         msg: "Login fail",
                         toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
@@ -162,6 +164,10 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     }
                   } catch (e) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Home()),
+                    );
                     print("Error: $e");
                     Fluttertoast.showToast(
                       msg: "Login fail",

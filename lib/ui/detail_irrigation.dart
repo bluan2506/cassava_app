@@ -5,10 +5,13 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:lottie/lottie.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import '../model/field.dart';
 import 'package:direction/styles.dart';
 import '../constant.dart';
+import '../model/measured_data.dart';
 
 double _boxHeight = 100;
 double _boxWidth = 150;
@@ -31,7 +34,8 @@ class _DetailIrrigationState extends State<DetailIrrigation> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    // _loadData();
+    fetchData();
   }
 
   @override
@@ -56,23 +60,61 @@ class _DetailIrrigationState extends State<DetailIrrigation> {
 
   Widget _loadDataBeforeRenderBody() {
     return FutureBuilder(
-      future: _loadData(),
+      future: fetchData(),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              '${snapshot.error} occurred',
-              style: TextStyle(fontSize: 18),
-            ),
-          );
-        } else if (snapshot.connectionState == ConnectionState.done) {
-          return _renderBody();
-        } else
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          // Return a loading indicator while waiting for data
           return Center(
             child: CircularProgressIndicator(),
           );
+        } else if (snapshot.hasError) {
+          // Handle error state
+          return Text('Error: ${snapshot.error}');
+        } else {
+          // Data has been fetched, render your actual widget
+          return _renderBody();
+        }
       },
     );
+  }
+
+  Future<void> fetchData() async{
+    await fetchWeatherData(field);
+    await fetchHumidityData(field);
+  }
+
+  Future<void> fetchWeatherData(Field field) async {
+    var header = {'Content-Type': 'text/plain'};
+    final response = await http.post(Uri.parse('${Constant.BASE_URL}getWeatherData'),
+        headers: header, body: '${field.fieldName}');
+    if (response.statusCode == 200) {
+      List<dynamic> data = json.decode(response.body);
+      List<Map<String, dynamic>> list = [];
+
+      for (var item in data) {
+        list.add(Map<String, dynamic>.from(item));
+      }
+        var result = list[list.length - 1];
+        double rainFall = result['rainFall'];
+        double relativeHumidity = result['relativeHumidity'];
+        double temperature = result['temperature'];
+        double windSpeed = result['windSpeed'];
+        double radiation = result['radiation'];
+        this.field.measuredData = MeasuredData(field.fieldName, rainFall, relativeHumidity, temperature, windSpeed, radiation, 0, 0);
+    }
+  }
+
+  Future<void> fetchHumidityData(Field field) async {
+    var header = {'Content-Type': 'text/plain'};
+    final response = await http.post(Uri.parse('${Constant.BASE_URL}getHumidityRecentTime'),
+        headers: header, body: '${field.fieldName}');
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = json.decode(response.body);
+        double humidity30 = data['humidity30'];
+        double humidity60 = data['humidity60'];
+        this.field.measuredData.soil30Humidity = humidity30;
+        this.field.measuredData.soil60Humidity = humidity60;
+    }
   }
 
   Future<void> _loadData() async {

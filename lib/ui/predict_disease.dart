@@ -1,4 +1,7 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:tflite/tflite.dart';
@@ -7,17 +10,16 @@ import 'package:image_picker/image_picker.dart';
 import '../model/field.dart';
 
 class PredictDisease extends StatelessWidget {
-  // This widget is the root of your application.
 
   final Field field;
-
   PredictDisease(this.field);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Cassava Leaf Classification',
 
-      home: Home(),
+      home: Home(this.field),
 
       debugShowCheckedModeBanner: false,
     );
@@ -25,15 +27,19 @@ class PredictDisease extends StatelessWidget {
 }
 
 class Home extends StatefulWidget {
+  final Field field;
+  Home(this.field);
   @override
-  _HomeState createState() => _HomeState();
+  _HomeState createState() => _HomeState(this.field);
 }
 
 class _HomeState extends State<Home> {
+  final Field field;
   bool _loading = true;
   File? _image;
   List _output = ["hello"];
   final picker = ImagePicker(); //allows us to pick image from gallery or camera
+  _HomeState(this.field);
 
   @override
   void initState() {
@@ -51,7 +57,7 @@ class _HomeState extends State<Home> {
     Tflite.close();
   }
 
-  classifyImage(File image) async {
+  classifyImage(Field field, File image) async {
     //this function runs the model on the image
     var output = await Tflite.runModelOnImage(
       path: image.path,
@@ -60,6 +66,7 @@ class _HomeState extends State<Home> {
       imageMean: 127.5,
       imageStd: 127.5,
     );
+    uploadFile(image, output![0]['label']);
     setState(() {
       _output = output!;
       _loading = false;
@@ -76,11 +83,40 @@ class _HomeState extends State<Home> {
     //this function to grab the image from camera
     var image = await picker.pickImage(source: ImageSource.camera);
     if (image == null) return null;
-
     setState(() {
       _image = File(image.path);
     });
-    classifyImage(_image!);
+
+    await classifyImage(field, _image!);
+  }
+
+  Future uploadFile(File image, String disease) async {
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+    final path = 'images/${field.fieldName}/$disease/$uniqueFileName';
+    final ref = FirebaseStorage.instance.refFromURL('gs://testfield-db.appspot.com').child(path);
+    UploadTask uploadTask = ref.putFile(image);
+
+    final snapshot = await uploadTask.whenComplete(() => {});
+
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    print('Download link: $urlDownload');
+    uploadData(field, urlDownload);
+  }
+
+  Future<void> uploadData(Field field, String urlDownload) async {
+    try {
+      CollectionReference users = FirebaseFirestore.instance.collection(field.fieldName);
+
+      await users.add({
+        'time': DateTime.now().toString(),
+        'disease': _output[0],
+        'urlImage': urlDownload,
+      });
+
+      print('Data uploaded successfully!');
+    } catch (e) {
+      print('Error uploading data: $e');
+    }
   }
 
   pickGalleryImage() async {
@@ -88,10 +124,11 @@ class _HomeState extends State<Home> {
     var image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) return null;
 
+
     setState(() {
       _image = File(image.path);
     });
-    classifyImage(_image!);
+    classifyImage(field, _image!);
   }
 
   Widget BackgroundImage(var height,var width){

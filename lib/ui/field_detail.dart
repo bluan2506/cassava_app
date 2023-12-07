@@ -190,7 +190,7 @@ class _FieldDetailState extends State<FieldDetail> {
 
   Future<void> _navigateToCustomizedParametersPage(
       BuildContext context, Field field) async {
-    await field.customizedParameters.getDataFromDb();
+    // await field.customizedParameters.getDataFromDb();
     Navigator.push(
         context,
         MaterialPageRoute(

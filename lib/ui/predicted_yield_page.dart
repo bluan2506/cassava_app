@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../constant.dart';
 import '../model/field.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,6 @@ class _PredictedYieldPageState extends State<PredictedYieldPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     fetchDataFuture = fetchData();
     super.initState();
   }
@@ -47,7 +47,9 @@ class _PredictedYieldPageState extends State<PredictedYieldPage> {
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             // Return a loading indicator while waiting for data
-            return CircularProgressIndicator();
+            return Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (snapshot.hasError) {
             // Handle error state
             return Text('Error: ${snapshot.error}');
@@ -65,7 +67,7 @@ class _PredictedYieldPageState extends State<PredictedYieldPage> {
     var body = '${field.fieldName}';
 
     final response = await http.post(
-      Uri.parse('http://localhost:8081/api/calculateModel'),
+      Uri.parse('${Constant.BASE_URL}calculateModel'),
         headers: headers, body: body
     );
 
