@@ -9,6 +9,8 @@ import 'detail_irrigation.dart';
 import '../styles.dart';
 import 'package:direction/ui/predicted_yield_page.dart';
 
+import 'health_status_page.dart';
+
 class FieldDetail extends StatefulWidget {
   final Field field;
 
@@ -84,6 +86,7 @@ class _FieldDetailState extends State<FieldDetail> {
     result.add(_renderIrrigationHistory());
     result.add(_renderEditField());
     result.add(_renderDisease());
+    result.add(_renderHealthStatus());
     result.add(_renderDownloadWeatherData());
     return SingleChildScrollView(
       physics: const AlwaysScrollableScrollPhysics(),
@@ -188,6 +191,37 @@ class _FieldDetailState extends State<FieldDetail> {
         ));
   }
 
+  Widget _renderHealthStatus() {
+    return Container(
+        padding: EdgeInsets.only(left: 15, top: 10, right: 15, bottom: 15),
+        child: SizedBox(
+          height: 70,
+          child: ElevatedButton(
+            style: Styles.fieldDetailButtonStyle,
+            child: Stack(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                      'Health status',
+                      style: Styles.fieldDetailTextStyle),
+                ),
+                Container(
+                  alignment: Alignment.centerRight,
+                  child: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Styles.iconColor,
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () =>
+                _navigateToHealthStatusPage(context, this._field),
+          ),
+        ));
+  }
+
   Future<void> _navigateToCustomizedParametersPage(
       BuildContext context, Field field) async {
     // await field.customizedParameters.getDataFromDb();
@@ -195,6 +229,13 @@ class _FieldDetailState extends State<FieldDetail> {
         context,
         MaterialPageRoute(
             builder: (context) => CustomizedParametersPage(this._field)));
+  }
+
+  void _navigateToHealthStatusPage(BuildContext context, Field field) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HealthStatus(field)));
   }
 
   void _navigateToDiseasePredictPage(BuildContext context, Field field) {

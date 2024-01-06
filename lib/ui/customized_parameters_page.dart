@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:http/http.dart' as http;
 
+import '../constant.dart';
 import '../model/field.dart';
 import 'detail_irrigation.dart';
 import '../styles.dart';
@@ -483,7 +487,7 @@ class _CustomizedParametersPageState extends State<CustomizedParametersPage> {
             child: Text('${AppLocalizations.of(context)!.change}'),
             onPressed: () => {
               setState(() {
-                this.field.customizedParameters.updateDataToDb();
+                updateCustomizedParameters(this.field);
               })
             },
           ),
@@ -492,5 +496,62 @@ class _CustomizedParametersPageState extends State<CustomizedParametersPage> {
       alignment: Alignment.bottomCenter,
       padding: EdgeInsets.only(bottom: 20),
     );
+  }
+
+  Future<void> updateCustomizedParameters(Field field) async {
+    String apiUrl = '${Constant.BASE_URL}updateCustomizedParameters';
+    Map<String, String> headers = {
+      'Content-Type': 'application/json',
+    };
+    Map<String, dynamic> requestBody = {
+      "fieldName": "${field.fieldName}",
+      "dAP": field.dAP,
+      "startTime": "${field.startTime}",
+      "irrigationCheck": field.irrigationCheck,
+      "amountOfIrrigation": field.amountOfIrrigation,
+      "customized_parameters": {
+        "fieldCapacity": field.customizedParameters.fieldCapacity,
+        "autoIrrigation": field.customizedParameters.autoIrrigation,
+        "irrigationDuration": field.customizedParameters.irrigationDuration,
+        "dripRate": field.customizedParameters.dripRate,
+        "distanceBetweenHole": field.customizedParameters.distanceBetweenHoles,
+        "distanceBetweenRow": field.customizedParameters.distanceBetweenRows,
+        "scaleRain": field.customizedParameters.scaleRain,
+        "fertilizationLevel": field.customizedParameters.fertilizationLevel,
+        "acreage": field.customizedParameters.acreage,
+        "numberOfHoles": field.customizedParameters.numberOfHoles
+      },
+      "startIrrigation": "",
+      "_autoIrrigateTime": -1,
+      "irrigation_information": {
+        "time": "2023-11-05 08:00:00.000",
+        "amount": field.amountOfIrrigation,
+        "duration": 0
+      },
+      "historyIrrigation": {}
+    };
+    String requestBodyJson = jsonEncode(requestBody);
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: headers,
+      body: requestBodyJson,
+    );
+    if (response.statusCode == 200) {
+      print('POST request successful');
+      print('Response: ${response.body}');
+      updateField();
+      Navigator.of(context).pop();
+    } else {
+      print('Failed to make POST request');
+      print('Status Code: ${response.statusCode}');
+      print('Response: ${response.body}');
+    }
+  }
+  Future<void> updateField() async {
+    final response = await http.post(Uri.parse('${Constant.BASE_URL}getUpdateListField'),
+      headers: {'Content-Type': 'application/json'},);
+    if (response.statusCode == 200) {
+      print("update success");
+    }
   }
 }

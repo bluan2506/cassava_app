@@ -238,6 +238,9 @@ class _FieldListState extends State<FieldList> {
         print(fieldList);
         setState(() {
           for (var item in fieldList) {
+            if (item['startTime'] == null) {
+              return;
+            }
             String fieldName = item['fieldName'];
             int dAP = item['dAP'];
             String startTime = item['startTime'];
@@ -326,10 +329,10 @@ class _FieldListState extends State<FieldList> {
         "fieldName": fieldName
       }),
       headers: {'Content-Type': 'application/json'},);
+    updateField();
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       List<Map<String, dynamic>> list = [];
-      updateField();
       for (var item in data) {
         list.add(Map<String, dynamic>.from(item));
       }
@@ -348,10 +351,10 @@ class _FieldListState extends State<FieldList> {
     var header = {'Content-Type': 'text/plain'};
     final response = await http.post(Uri.parse('${Constant.BASE_URL}deleteField'),
         headers: header, body: '$fieldName');
+    updateField();
     if (response.statusCode == 200) {
       List<dynamic> data = json.decode(response.body);
       List<Map<String, dynamic>> list = [];
-
       for (var item in data) {
         list.add(Map<String, dynamic>.from(item));
       }

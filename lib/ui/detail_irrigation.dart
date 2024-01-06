@@ -366,7 +366,7 @@ class _DetailIrrigationState extends State<DetailIrrigation> {
           decoration: Styles.boxDecoration,
           alignment: Alignment.center,
           child: Text(
-            "${AppLocalizations.of(context)!.amountOfIrrigationFor} ${this.field.getIrrigationTime()}: ${this.field.getIrrigationAmount()} (l/m2)",
+            "${AppLocalizations.of(context)!.amountOfIrrigationFor} ${DateTime.now()}: ${this.field.getIrrigationAmount()} (l/m2)",
             style: Styles.textDefault,
           ),
         ),

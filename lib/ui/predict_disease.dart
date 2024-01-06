@@ -1,8 +1,10 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'dart:io';
 import 'package:tflite/tflite.dart';
 import 'package:image_picker/image_picker.dart';
@@ -92,27 +94,28 @@ class _HomeState extends State<Home> {
 
   Future uploadFile(File image, String disease) async {
     String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
-    final path = 'images/${field.fieldName}/$disease/$uniqueFileName';
-    final ref = FirebaseStorage.instance.refFromURL('gs://testfield-db.appspot.com').child(path);
+    final path = 'images/${field.fieldName}/$uniqueFileName';
+    final ref = FirebaseStorage.instance.refFromURL('gs://directionproject-1e798.appspot.com').child(path);
     UploadTask uploadTask = ref.putFile(image);
 
     final snapshot = await uploadTask.whenComplete(() => {});
 
     final urlDownload = await snapshot.ref.getDownloadURL();
     print('Download link: $urlDownload');
-    uploadData(field, urlDownload);
+    uploadData(field, urlDownload, disease);
   }
 
-  Future<void> uploadData(Field field, String urlDownload) async {
+  Future<void> uploadData(Field field, String urlDownload, String disease) async {
     try {
-      CollectionReference users = FirebaseFirestore.instance.collection(field.fieldName);
-
-      await users.add({
-        'time': DateTime.now().toString(),
-        'disease': _output[0],
+      final databaseReference = FirebaseDatabase(databaseURL: 'https://directionproject-1e798-default-rtdb.firebaseio.com/').reference();
+      Map<String, dynamic> data = {
+        'time' : DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now()),
+        'isSick': (disease == "Healthy Cassava") ? false : true,
+        'disease': disease,
         'urlImage': urlDownload,
-      });
-
+      };
+      databaseReference.child('user/${field.fieldName}/disease/'
+          '${DateFormat('yyyy-MM-dd HH:mm:ss').format(DateTime.now())}').set(data);
       print('Data uploaded successfully!');
     } catch (e) {
       print('Error uploading data: $e');

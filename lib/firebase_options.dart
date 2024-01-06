@@ -47,33 +47,32 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAb3MeNxuZRGNYVKTXVXhsE7V-6DK_TRmQ',
-    appId: '1:279831183939:web:bc47993bf9d8e0bea04af6',
-    messagingSenderId: '279831183939',
-    projectId: 'directionapp-8aee1',
-    authDomain: 'directionapp-8aee1.firebaseapp.com',
-    databaseURL: 'https://directionapp-8aee1-default-rtdb.firebaseio.com',
-    storageBucket: 'directionapp-8aee1.appspot.com',
-    measurementId: 'G-RJ5HTGF1CG',
+    apiKey: 'AIzaSyDT8mYyPrl_qhPbYUN-2FCunTFm1DE0elY',
+    appId: '1:139010987790:web:34c5a12b2a96160adfa95f',
+    messagingSenderId: '139010987790',
+    projectId: 'directionproject-1e798',
+    authDomain: 'directionproject-1e798.firebaseapp.com',
+    databaseURL: 'https://directionproject-1e798-default-rtdb.firebaseio.com',
+    storageBucket: 'directionproject-1e798.appspot.com',
+    measurementId: 'G-R5HN8528KK',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCu3JeTdkUK07PjpHlalCfJ46cnJP4Kwwo',
-    appId: '1:279831183939:android:5c28ca0c96213262a04af6',
-    messagingSenderId: '279831183939',
-    projectId: 'directionapp-8aee1',
-    databaseURL: 'https://directionapp-8aee1-default-rtdb.firebaseio.com',
-    storageBucket: 'directionapp-8aee1.appspot.com',
+    apiKey: 'AIzaSyAIJrocqX3N4DY5C32Ry-qqCSJMPn8IKFA',
+    appId: '1:139010987790:android:fa100f55a1c4b4b2dfa95f',
+    messagingSenderId: '139010987790',
+    projectId: 'directionproject-1e798',
+    databaseURL: 'https://directionproject-1e798-default-rtdb.firebaseio.com',
+    storageBucket: 'directionproject-1e798.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDrcReTHFyx9CzxCIo8XpMuA4oRk-Voxls',
-    appId: '1:279831183939:ios:bbdbdac81b5a97d9a04af6',
-    messagingSenderId: '279831183939',
-    projectId: 'directionapp-8aee1',
-    databaseURL: 'https://directionapp-8aee1-default-rtdb.firebaseio.com',
-    storageBucket: 'directionapp-8aee1.appspot.com',
-    iosClientId: '279831183939-rjfv83fk1vutq8u7p4v8rjcvc5801b68.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDZXGlEdhXMIozsg0lcNX0XDEIkX5URZ20',
+    appId: '1:139010987790:ios:71902291beb35ee7dfa95f',
+    messagingSenderId: '139010987790',
+    projectId: 'directionproject-1e798',
+    databaseURL: 'https://directionproject-1e798-default-rtdb.firebaseio.com',
+    storageBucket: 'directionproject-1e798.appspot.com',
     iosBundleId: 'com.example.direction',
   );
 }

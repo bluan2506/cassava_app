@@ -1,5 +1,5 @@
 class Constant {
-  static const BASE_URL = "https://distinctly-desired-troll.ngrok-free.app/demo1-0.0.1-SNAPSHOT/api/";
+  static const BASE_URL = "https://commonly-relaxing-burro.ngrok-free.app/demo1-0.0.1-SNAPSHOT/api/";
   // static const BASE_URL = "http://localhost:8081/api/";
   static const USER = 'user';
   static const TEST_USER = 'testUser';

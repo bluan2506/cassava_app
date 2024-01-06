@@ -96,8 +96,8 @@ class _IrrigationHistoryState extends State<IrrigationHistory> {
         children: [
           Text("User: ${irrigationRecord.userName}", style: Styles.timeTitle),
           Text("${AppLocalizations.of(context)!.startingIrrigationTime}: $formattedDate", style: Styles.timeTitle,),
-          Text("${AppLocalizations.of(context)!.durationOfIrrigation}: ${irrigationRecord.duration} (s)", style: Styles.timeTitle),
-          Text("${AppLocalizations.of(context)!.amountOfIrrigation}: ${irrigationRecord.amount} (l/m^2)", style: Styles.timeTitle)
+          Text("${AppLocalizations.of(context)!.durationOfIrrigation}: ${double.parse(irrigationRecord.duration.toStringAsFixed(2))} (s)", style: Styles.timeTitle),
+          Text("${AppLocalizations.of(context)!.amountOfIrrigation}: ${double.parse(irrigationRecord.amount.toStringAsFixed(2))} (l/m^2)", style: Styles.timeTitle)
         ],
       ),
     );

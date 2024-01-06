@@ -149,10 +149,6 @@ class _LoginPageState extends State<LoginPage> {
                       // Failed to log in
                       print("Đăng nhập thất bại");
                       print("Message: $message");
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Home()),
-                      );
                       Fluttertoast.showToast(
                         msg: "Login fail",
                         toastLength: Toast.LENGTH_SHORT, // or Toast.LENGTH_LONG
@@ -164,10 +160,6 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     }
                   } catch (e) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Home()),
-                    );
                     print("Error: $e");
                     Fluttertoast.showToast(
                       msg: "Login fail",
